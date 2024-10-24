@@ -42,7 +42,11 @@ def update_time():
         if debug == 0:
             with display_semaphore:  # Acquire semaphore before updating display
                 print("Drawing current time on display partial")  # Log display update
-                epd.display_Partial(epd.getbuffer(display.im_partial), 400 - font48.getsize(current_time)[0] // 2, 400, 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0], 400 + font48.getsize(current_time)[1])  # Update display with the time
+                Xstart = 400 - font48.getsize(current_time)[0] // 2
+                Ystart = 400
+                Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
+                Yend = 400 + font48.getsize(current_time)[1]
+                epd.display_Partial(epd.getbuffer(display.im_partial), Xstart, Ystart, Xend, Yend)  # Update display with the time
                 print("Display updated with current time")  # Log display update
         else:
             display.im_black.show()
