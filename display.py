@@ -37,9 +37,9 @@ font48 = ImageFont.truetype(project_font, 48)
 
 class Display:
     def __init__(self):
-        self.im_black = Image.new('1', (800, 480), 255)
-        self.im_red = Image.new('1', (800, 480), 255)
-        self.im_partial = Image.new('1', (157, 52), 255)
+        self.im_black = Image.new("1", (800, 480), 255)
+        self.im_red = Image.new("1", (800, 480), 255)
+        self.im_partial = Image.new("1", (800, 480), 255)
         self.draw_black = ImageDraw.Draw(self.im_black)
         self.draw_red = ImageDraw.Draw(self.im_red)
         self.draw_partial = ImageDraw.Draw(self.im_partial)
@@ -73,8 +73,8 @@ class Display:
 
     def clear(self, c):
         if c == "b":
-            self.im_black.paste(Image.new('1', (800, 480), 255), (0, 0))
+            self.im_black.paste(Image.new("1", (800, 480), 255), (0, 0))
         elif c == "r":
-            self.im_red.paste(Image.new('1', (800, 480), 255), (0, 0))
+            self.im_red.paste(Image.new("1", (800, 480), 255), (0, 0))
         else:
-            self.im_partial.paste(Image.new('1', (800, 480), 255), (0, 0))
+            self.im_partial.paste(Image.new("1", (800, 480), 255), (0, 0))
