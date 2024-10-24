@@ -44,12 +44,6 @@ def update_time():
         time.sleep(60)  # Sleep for 1 minute before updating the time
 
 def main(first_run):
-    if first_run:
-        # Start the time update thread
-        time_thread = threading.Thread(target=update_time)
-        time_thread.daemon = True  # Daemonize thread
-        time_thread.start()
-
     ##################################################################################################################
     # FRAME
     display.draw_black.rectangle((5, 5, 795, 475), fill=255, outline=0, width=2)  # INNER FRAME
@@ -137,6 +131,13 @@ def main(first_run):
             epd.display(epd.getbuffer(display.im_black), epd.getbuffer(display.im_red))
     else:
         display.im_black.show()
+
+    if first_run:
+        # Start the time update thread
+        time_thread = threading.Thread(target=update_time)
+        time_thread.daemon = True  # Daemonize thread
+        time_thread.start()
+
     return True
 
 
