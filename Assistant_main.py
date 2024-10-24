@@ -50,8 +50,8 @@ def update_time():
             # Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
             # Yend = 400 + font48.getsize(current_time)[1]
             Xstart = 0
-            Ystart = 800
-            Xend = 0
+            Ystart = 0
+            Xend = 800
             Yend = 480
             print(f"Inserting current time on display partial at ({Xstart}, {Ystart}) to ({Xend}, {Yend})")  # Log display update
             with display_semaphore:  # Acquire semaphore before updating display
