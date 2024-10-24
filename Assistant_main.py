@@ -36,15 +36,17 @@ def map_resize(val, in_mini, in_maxi, out_mini, out_maxi):
 def update_time():
     while True:
         current_time = time.strftime("%H:%M", time.localtime()) + "H"
+        print(f"Updating current time to: {current_time}")  # Log the current time update
+        print("Drawing current time on display")  # Log display update
         display.draw_partial.text((0, 0), current_time, fill=0, font=font48)
-        print(f"Current time updated to: {current_time}")  # Log the current time update
         if debug == 0:
             with display_semaphore:  # Acquire semaphore before updating display
+                print("Drawing current time on display partial")  # Log display update
                 epd.display_Partial(epd.getbuffer(display.im_partial), 400 - font48.getsize(current_time)[0] // 2, 400, 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0], 400 + font48.getsize(current_time)[1])  # Update display with the time
-                print("Display updated with current time.")  # Log display update
+                print("Display updated with current time")  # Log display update
         else:
             display.im_black.show()
-            print("Display shown in debug mode.")  # Log debug display show
+            print("Display shown in debug mode")  # Log debug display show
         time.sleep(60)  # Sleep for 1 minute before updating the time
 
 def main(first_run):
