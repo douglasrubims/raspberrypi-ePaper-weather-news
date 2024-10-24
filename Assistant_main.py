@@ -41,15 +41,15 @@ def update_time():
         current_time = time.strftime("%H:%M", time.localtime()) + "H"
         print(f"Updating current time to: {current_time}")  # Log the current time update
         print("Drawing current time on display")  # Log display update
-        # display.draw_partial.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
-        display.draw_partial.text((100, 100), current_time, fill=0, font=font48)
+        # display.draw_partial.text((400 - font24.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font24)
+        display.draw_partial.text((100, 100), current_time, fill=0, font=font24)
         if debug == 0:
             epd2.init()
             print("Drawing current time on display partial")  # Log display update
-            # Xstart = 400 - font48.getsize(current_time)[0] // 2
+            # Xstart = 400 - font24.getsize(current_time)[0] // 2
             # Ystart = 400
-            # Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
-            # Yend = 400 + font48.getsize(current_time)[1]
+            # Xend = 400 - font24.getsize(current_time)[0] // 2 + font24.getsize(current_time)[0]
+            # Yend = 400 + font24.getsize(current_time)[1]
             Xstart = 100
             Ystart = 100
             Xend = 800
