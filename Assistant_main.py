@@ -18,7 +18,7 @@ lat = os.getenv("LOCATION_LATITUDE")
 lon = os.getenv("LOCATION_LONGITUDE")
 
 if debug == 0:
-    from waveshare_epd import epd7in5b_V2
+    from .epd7in5b_V2 import EPD
 else:
     pass
 
@@ -38,7 +38,7 @@ def update_time():
         display.draw_red.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
         if debug == 0:
             with display_semaphore:  # Acquire semaphore before updating display
-                epd.display_Partial(epd.getbuffer(display.im_red), 0, 0, epd.width, epd.height)  # Update display with the time
+                epd.display_Partial(epd.getbuffer(display.im_red), 400 - font48.getsize(current_time)[0] // 2, 400, 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0], 400 + font48.getsize(current_time)[1])  # Update display with the time
         else:
             display.im_black.show()
         time.sleep(60)  # Sleep for 1 minute before updating the time
@@ -153,7 +153,7 @@ if __name__ == "__main__":
             print("INITIALIZATION PROBLEM- @" + current_time)
             time.sleep(2)
     if debug == 0:
-        epd = epd7in5b_V2.EPD()
+        epd = EPD()
 
     first_run = True
 
