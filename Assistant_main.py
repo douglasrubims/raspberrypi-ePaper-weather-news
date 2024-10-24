@@ -191,7 +191,7 @@ if __name__ == "__main__":
             news.update(api_key_news)
             print("News Updated")
             print("Main program running...")
-            main()
+            # main()
             if debug == 0:
                 print("Going to sleep...")
                 epd.sleep()
