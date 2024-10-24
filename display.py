@@ -70,3 +70,11 @@ class Display:
                 self.im_red.paste(im_icon, (x, y), im_icon)
             else:
                 self.im_black.paste(im_icon, (x, y), im_icon)
+
+    def clear(self, c):
+        if c == "b":
+            self.im_black.paste(Image.new('1', (800, 480), 255), (0, 0))
+        elif c == "r":
+            self.im_red.paste(Image.new('1', (800, 480), 255), (0, 0))
+        else:
+            self.im_partial.paste(Image.new('1', (800, 480), 255), (0, 0))

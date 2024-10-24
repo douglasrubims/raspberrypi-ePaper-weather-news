@@ -49,6 +49,7 @@ def update_time():
                 print(f"Inserting current time on display partial at ({Xstart}, {Ystart}) to ({Xend}, {Yend})")  # Log display update
                 epd.display_Partial(epd.getbuffer(display.im_partial), Xstart, Ystart, Xend, Yend)  # Update display with the time
                 print("Display updated with current time")  # Log display update
+                display.clear("partial")
         else:
             display.im_black.show()
             print("Display shown in debug mode")  # Log debug display show
@@ -143,6 +144,9 @@ def main(first_run):
     else:
         display.im_black.show()
 
+    display.clear("b")
+    display.clear("r")
+
     if first_run:
         # Start the time update thread
         time_thread = threading.Thread(target=update_time)
@@ -166,30 +170,30 @@ if __name__ == "__main__":
             time.sleep(2)
     if debug == 0:
         epd = EPD()
+        epd.init()
 
     first_run = True
+
+    display = Display()
 
     while True:
         # Defining objects
         current_time = time.strftime("%d/%m/%Y %H:%M", time.localtime())
         print("Begin update @" + current_time)
         print("Creating display")
-        display = Display()
         # Update values
         weather.update()
         print("Weather Updated")
         news.update(api_key_news)
         print("News Updated")
         print("Main program running...")
-        if debug == 0:
-            epd.init()
         main(first_run)
         if first_run:
             first_run = False
-        if debug == 0:
-            print("Going to sleep...")
-            epd.sleep()
-            print("Sleeping ZZZzzzzZZZzzz")
+        # if debug == 0:
+        #     print("Going to sleep...")
+        #     epd.sleep()
+        #     print("Sleeping ZZZzzzzZZZzzz")
         print("Done")
         print("------------")
         time.sleep(1800)  # Sleep for 30 minutes before the next full update
