@@ -43,7 +43,7 @@ def update_time():
         print("Drawing current time on display")  # Log display update
         display.draw_partial.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
         if debug == 0:
-            epd2.init_part()
+            epd2.init_Fast()
             print("Drawing current time on display partial")  # Log display update
             Xstart = 400 - font48.getsize(current_time)[0] // 2
             Ystart = 400
