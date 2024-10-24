@@ -51,7 +51,7 @@ def update_time():
                 print("Display updated with current time")  # Log display update
                 display.clear("partial")
         else:
-            display.im_black.show()
+            display.im_partial.show()
             print("Display shown in debug mode")  # Log debug display show
         time.sleep(60)  # Sleep for 1 minute before updating the time
 
@@ -170,7 +170,7 @@ if __name__ == "__main__":
             time.sleep(2)
     if debug == 0:
         epd = EPD()
-        epd.init()
+        epd.init_part()
 
     first_run = True
 
