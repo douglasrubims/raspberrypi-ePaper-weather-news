@@ -22,6 +22,9 @@ if debug == 0:
 else:
     pass
 
+# Semaphore to control access to display updates
+display_semaphore = threading.Semaphore(1)
+
 def map_resize(val, in_mini, in_maxi, out_mini, out_maxi):
     if in_maxi - in_mini != 0:
         out_temp = (val - in_mini) * (out_maxi - out_mini) // (in_maxi - in_mini) + out_mini
@@ -34,7 +37,8 @@ def update_time():
         current_time = time.strftime("%H:%M", time.localtime()) + "H"
         display.draw_red.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
         if debug == 0:
-            epd.display_Partial(epd.getbuffer(display.im_red), 0, 0, epd.width, epd.height)  # Update display with the time
+            with display_semaphore:  # Acquire semaphore before updating display
+                epd.display_Partial(epd.getbuffer(display.im_red), 0, 0, epd.width, epd.height)  # Update display with the time
         else:
             display.im_black.show()
         time.sleep(60)  # Sleep for 1 minute before updating the time
@@ -129,7 +133,8 @@ def main(first_run):
 
     print("Updating screen...")
     if debug == 0:
-        epd.display(epd.getbuffer(display.im_black), epd.getbuffer(display.im_red))
+        with display_semaphore:  # Acquire semaphore before updating display
+            epd.display(epd.getbuffer(display.im_black), epd.getbuffer(display.im_red))
     else:
         display.im_black.show()
     return True
