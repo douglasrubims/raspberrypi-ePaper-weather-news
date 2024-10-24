@@ -46,6 +46,7 @@ def update_time():
                 Ystart = 400
                 Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
                 Yend = 400 + font48.getsize(current_time)[1]
+                print(f"Inserting current time on display partial at ({Xstart}, {Ystart}) to ({Xend}, {Yend})")  # Log display update
                 epd.display_Partial(epd.getbuffer(display.im_partial), Xstart, Ystart, Xend, Yend)  # Update display with the time
                 print("Display updated with current time")  # Log display update
         else:
