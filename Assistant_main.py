@@ -45,10 +45,14 @@ def update_time():
         if debug == 0:
             epd2.init_Fast()
             print("Drawing current time on display partial")  # Log display update
-            Xstart = 400 - font48.getsize(current_time)[0] // 2 - 50
-            Ystart = 400 - 50
-            Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0] + 50
-            Yend = 400 + font48.getsize(current_time)[1] + 28
+            # Xstart = 400 - font48.getsize(current_time)[0] // 2
+            # Ystart = 400
+            # Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
+            # Yend = 400 + font48.getsize(current_time)[1]
+            Xstart = 0
+            Ystart = 800
+            Xend = 0
+            Yend = 480
             print(f"Inserting current time on display partial at ({Xstart}, {Ystart}) to ({Xend}, {Yend})")  # Log display update
             with display_semaphore:  # Acquire semaphore before updating display
                 epd2.display_Partial(epd2.getbuffer(display.im_partial), Xstart, Ystart, Xend, Yend)  # Update display with the time
