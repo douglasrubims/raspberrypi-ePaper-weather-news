@@ -18,7 +18,7 @@ lat = os.getenv("LOCATION_LATITUDE")
 lon = os.getenv("LOCATION_LONGITUDE")
 
 if debug == 0:
-    from .epd7in5b_V2 import EPD
+    from epd7in5b_V2 import EPD
 else:
     pass
 
