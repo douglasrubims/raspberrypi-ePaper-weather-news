@@ -39,8 +39,10 @@ class Display:
     def __init__(self):
         self.im_black = Image.new('1', (800, 480), 255)
         self.im_red = Image.new('1', (800, 480), 255)
+        self.im_partial = Image.new('1', (800, 480), 255)
         self.draw_black = ImageDraw.Draw(self.im_black)
         self.draw_red = ImageDraw.Draw(self.im_red)
+        self.draw_partial = ImageDraw.Draw(self.im_partial)
 
     def draw_text(self, x, y, text, font, color):
         if color == "b":
