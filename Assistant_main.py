@@ -139,8 +139,8 @@ def main():
 
     ###################################################################################################################
     # CLOCK
-    current_time = time.strftime("%H:%M", time.localtime()) + "H"
-    display.draw_text(400 - font48.getsize(current_time)[0] // 2, 400, current_time, font=font48, color="r")
+    # current_time = time.strftime("%H:%M", time.localtime()) + "H"
+    # display.draw_text(400 - font48.getsize(current_time)[0] // 2, 400, current_time, font=font48, color="r")
 
     print("Updating screen...")
     if debug == 0:
@@ -194,10 +194,10 @@ if __name__ == "__main__":
                 print("Sleeping ZZZzzzzZZZzzz")
             print("Done")
             print("------------")
-            if first_run:
-                # Start the time update thread
-                time_thread = threading.Thread(target=update_time)
-                time_thread.daemon = True  # Daemonize thread
-                time_thread.start()
-                first_run = False
+            # if first_run:
+            #     # Start the time update thread
+            #     time_thread = threading.Thread(target=update_time)
+            #     time_thread.daemon = True  # Daemonize thread
+            #     time_thread.start()
+            #     first_run = False
         time.sleep(1800)  # Sleep for 30 minutes before the next full update
