@@ -32,6 +32,7 @@ font10 = ImageFont.truetype(project_font, 10)
 font12 = ImageFont.truetype(project_font, 12)
 font14 = ImageFont.truetype(project_font, 14)
 font16 = ImageFont.truetype(project_font, 16)
+font20 = ImageFont.truetype(project_font, 20)
 font24 = ImageFont.truetype(project_font, 24)
 font48 = ImageFont.truetype(project_font, 48)
 
