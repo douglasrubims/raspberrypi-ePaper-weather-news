@@ -60,7 +60,7 @@ def update_time():
             print("Display shown in debug mode")  # Log debug display show
         time.sleep(60)  # Sleep for 1 minute before updating the time
 
-def main(first_run):
+def main():
     ##################################################################################################################
     # FRAME
     display.draw_black.rectangle((5, 5, 795, 475), fill=255, outline=0, width=2)  # INNER FRAME
@@ -151,12 +151,6 @@ def main(first_run):
     display.clear("b")
     display.clear("r")
 
-    if first_run:
-        # Start the time update thread
-        time_thread = threading.Thread(target=update_time)
-        time_thread.daemon = True  # Daemonize thread
-        time_thread.start()
-
     return True
 
 
@@ -193,13 +187,17 @@ if __name__ == "__main__":
             news.update(api_key_news)
             print("News Updated")
             print("Main program running...")
-            main(first_run)
-            if first_run:
-                first_run = False
+            main()
             if debug == 0:
                 print("Going to sleep...")
                 epd.sleep()
                 print("Sleeping ZZZzzzzZZZzzz")
             print("Done")
             print("------------")
+            if first_run:
+                # Start the time update thread
+                time_thread = threading.Thread(target=update_time)
+                time_thread.daemon = True  # Daemonize thread
+                time_thread.start()
+                first_run = False
         time.sleep(1800)  # Sleep for 30 minutes before the next full update
