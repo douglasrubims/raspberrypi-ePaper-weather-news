@@ -38,7 +38,7 @@ def update_time():
         current_time = time.strftime("%H:%M", time.localtime()) + "H"
         print(f"Updating current time to: {current_time}")  # Log the current time update
         print("Drawing current time on display")  # Log display update
-        display.draw_partial.text((0, 0), current_time, fill=0, font=font48)
+        display.draw_partial.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
         if debug == 0:
             with display_semaphore:  # Acquire semaphore before updating display
                 print("Drawing current time on display partial")  # Log display update
