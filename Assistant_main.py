@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+from PIL import Image, ImageDraw
 from weather import *
 from news import *
 from display import *
@@ -35,10 +36,11 @@ def map_resize(val, in_mini, in_maxi, out_mini, out_maxi):
 def update_time():
     while True:
         current_time = time.strftime("%H:%M", time.localtime()) + "H"
-        display.draw_red.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
+        im_partial = Image.new('1', (400 - font48.getsize(current_time)[0] // 2, 400), 255)
+        ImageDraw.Draw(im_partial).text((0, 0), current_time, fill=0, font=font48)
         if debug == 0:
             with display_semaphore:  # Acquire semaphore before updating display
-                epd.display_Partial(epd.getbuffer(display.im_red), 400 - font48.getsize(current_time)[0] // 2, 400, 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0], 400 + font48.getsize(current_time)[1])  # Update display with the time
+                epd.display_Partial(epd.getbuffer(im_partial), 400 - font48.getsize(current_time)[0] // 2, 400, 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0], 400 + font48.getsize(current_time)[1])  # Update display with the time
         else:
             display.im_black.show()
         time.sleep(60)  # Sleep for 1 minute before updating the time
