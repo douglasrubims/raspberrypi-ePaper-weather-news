@@ -63,7 +63,7 @@ def update_time():
 def main():
     ##################################################################################################################
     # FRAME
-    display.draw_black.rectangle((5, 5, 795, 475), fill=255, outline=0, width=2)  # INNER FRAME
+    display.draw_black.rectangle((0, 0, 798, 478), fill=255, outline=0, width=2)  # INNER FRAME
     display.draw_black.line((350, 5, 350, 290), fill=0, width=1)  # VERTICAL SEPARATION slim
     display.draw_black.line((5, 290, 795, 290), fill=0, width=1)  # HORIZONTAL SEPARATION
 
@@ -142,6 +142,46 @@ def main():
     # current_time = time.strftime("%H:%M", time.localtime()) + "H"
     # display.draw_text(400 - font48.getsize(current_time)[0] // 2, 400, current_time, font=font48, color="r")
 
+    ###################################################################################################################
+    # PRAYER OF ST. BENEDICT
+    prayer_latim = [
+        "Crux Sacra Sit Mihi Lux, Non Draco Sit Mihi Dux.",
+        "Vade Retro Satana, Nunquam Suade Mihi Vana.",
+        "Sunt Mala Quae Libas. Ipse Venena Bibas."
+    ]
+
+    prayer_portugues = [
+        "A Cruz Sagrada seja minha luz, não seja o Dragão o meu guia.",
+        "Retira-te, Satanás, nunca me aconselhes coisas vãs.",
+        "É mau o que me ofereces. Bebe tu mesmo o teu veneno."
+    ]
+
+    prayer_y = 320
+    prayer_line_height = 20
+    prayer_font = font16
+    screen_width = 800
+
+    def get_text_width(text, font):
+        try:
+            return display.draw_black.textlength(text, font=font)
+        except AttributeError:
+            avg_char_width = 10
+            return len(text) * avg_char_width
+
+    for i, line in enumerate(prayer_latim):
+        text_width = get_text_width(line, prayer_font)
+        prayer_x = (screen_width - text_width) // 2
+        display.draw_black.text((prayer_x, prayer_y + i * prayer_line_height), line, fill=0, font=prayer_font)
+
+    prayer_y_port = prayer_y + len(prayer_latim) * prayer_line_height + 16
+
+    for i, line in enumerate(prayer_portugues):
+        text_width = get_text_width(line, prayer_font)
+        prayer_x = (screen_width - text_width) // 2
+        display.draw_black.text((prayer_x, prayer_y_port + i * prayer_line_height), line, fill=0, font=prayer_font)
+
+    ###################################################################################################################
+    # UPDATE SCREEN
     print("Updating screen...")
     if debug == 0:
         epd.display(epd.getbuffer(display.im_black), epd.getbuffer(display.im_red))
