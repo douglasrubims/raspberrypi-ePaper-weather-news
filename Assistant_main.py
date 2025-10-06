@@ -37,28 +37,26 @@ def update_time():
     if debug == 0:
         epd2 = EPD()
 
-    while True:
-        current_time = time.strftime("%H:%M", time.localtime()) + "H"
-        print(f"Updating current time to: {current_time}")  # Log the current time update
-        print("Drawing current time on display")  # Log display update
-        display.draw_partial.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
-        if debug == 0:
-            epd2.init()
-            print("Drawing current time on display partial")  # Log display update
-            Xstart = 400 - font48.getsize(current_time)[0] // 2
-            Ystart = 400
-            Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
-            Yend = 400 + font48.getsize(current_time)[1]
-            print(f"Inserting current time on display partial at ({Xstart}, {Ystart}) to ({Xend}, {Yend})")  # Log display update
-            with display_semaphore:  # Acquire semaphore before updating display
-                epd2.display_Partial(epd2.getbuffer(display.im_partial), Xstart, Ystart, Xend, Yend)  # Update display with the time
-                epd2.sleep()
-            print("Display updated with current time")  # Log display update
-            display.clear("partial")
-        else:
-            display.im_partial.show()
-            print("Display shown in debug mode")  # Log debug display show
-        time.sleep(60)  # Sleep for 1 minute before updating the time
+    current_time = time.strftime("%H:%M", time.localtime()) + "H"
+    print(f"Updating current time to: {current_time}")  # Log the current time update
+    print("Drawing current time on display")  # Log display update
+    display.draw_partial.text((400 - font48.getsize(current_time)[0] // 2, 400), current_time, fill=0, font=font48)
+    if debug == 0:
+        epd2.init()
+        print("Drawing current time on display partial")  # Log display update
+        Xstart = 400 - font48.getsize(current_time)[0] // 2
+        Ystart = 400
+        Xend = 400 - font48.getsize(current_time)[0] // 2 + font48.getsize(current_time)[0]
+        Yend = 400 + font48.getsize(current_time)[1]
+        print(f"Inserting current time on display partial at ({Xstart}, {Ystart}) to ({Xend}, {Yend})")  # Log display update
+        with display_semaphore:  # Acquire semaphore before updating display
+            epd2.display_Partial(epd2.getbuffer(display.im_partial), Xstart, Ystart, Xend, Yend)  # Update display with the time
+            epd2.sleep()
+        print("Display updated with current time")  # Log display update
+        display.clear("partial")
+    else:
+        display.im_partial.show()
+        print("Display shown in debug mode")  # Log debug display show
 
 def main():
     ##################################################################################################################
@@ -195,8 +193,6 @@ def main():
 
 
 if __name__ == "__main__":
-    global been_reboot
-    been_reboot=1
     while True:
         try:
             weather = Weather(lat, lon, api_key_weather)
@@ -206,38 +202,32 @@ if __name__ == "__main__":
             current_time = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
             print("INITIALIZATION PROBLEM- @" + current_time)
             time.sleep(2)
+
     if debug == 0:
         epd = EPD()
 
-    first_run = True
-
     display = Display()
 
-    while True:
-        with display_semaphore:  # Acquire semaphore before updating display
-            # Defining objects
-            current_time = time.strftime("%d/%m/%Y %H:%M", time.localtime())
-            print("Begin update @" + current_time)
-            print("Creating display")
-            if debug == 0:
-                epd.init()
-            # Update values
-            weather.update()
-            print("Weather Updated")
-            news.update(api_key_news)
-            print("News Updated")
-            print("Main program running...")
-            main()
-            if debug == 0:
-                print("Going to sleep...")
-                epd.sleep()
-                print("Sleeping ZZZzzzzZZZzzz")
-            print("Done")
-            print("------------")
-            # if first_run:
-            #     # Start the time update thread
-            #     time_thread = threading.Thread(target=update_time)
-            #     time_thread.daemon = True  # Daemonize thread
-            #     time_thread.start()
-            #     first_run = False
-        time.sleep(1800)  # Sleep for 30 minutes before the next full update
+    # Execute the main program once
+    with display_semaphore:  # Acquire semaphore before updating display
+        # Defining objects
+        current_time = time.strftime("%d/%m/%Y %H:%M", time.localtime())
+        print("Begin update @" + current_time)
+        print("Creating display")
+        if debug == 0:
+            epd.init()
+        # Update values
+        weather.update()
+        print("Weather Updated")
+        news.update(api_key_news)
+        print("News Updated")
+        print("Main program running...")
+        main()
+        if debug == 0:
+            print("Going to sleep...")
+            epd.sleep()
+            print("Sleeping ZZZzzzzZZZzzz")
+        print("Done")
+        print("------------")
+    
+    print("Program completed successfully. Exiting...")
